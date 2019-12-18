@@ -1,0 +1,18 @@
+@import "./spacing.scss";
+
+.card {
+  border-radius: 4px;
+}
+
+iframe {
+  max-height: unset;
+}
+
+.noscroll {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}
