@@ -1,5 +1,8 @@
+#!/usr/bin/env node
+
 const yargs = require("yargs");
 const { spawnSync } = require("child_process");
+const path = require("path");
 
 const { argv } = yargs
   .command("$0 [cmd] <root>", "Start up Nuxt-ts server", (y) => {
@@ -7,14 +10,16 @@ const { argv } = yargs
     .positional("cmd", {
       describe: "Command to pass to Nuxt-ts via Yarn",
       default: "dev"
-    }).positional("root", {
-      describe: "Root folder to scan (Must have config.yaml and data/)"
+    })
+    .positional("root", {
+      describe: "Root folder to scan (Must have config.yaml and folders)"
     });
   })
   .help();
 
-process.env.ROOT = argv.root;
+process.env.ROOT = path.resolve(process.cwd(), argv.root);
 
 spawnSync("yarn", [argv.cmd], {
-  stdio: "inherit"
+  stdio: "inherit",
+  cwd: __dirname
 });

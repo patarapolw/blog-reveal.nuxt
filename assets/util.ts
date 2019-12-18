@@ -1,7 +1,7 @@
 import hljs from "highlight.js";
 import hljsDefineVue from "highlightjs-vue";
 import QParser from "q2filter";
-import { $axios } from "~/utils/api";
+import { $axios } from "../utils/api";
 
 export function escapeRegExp(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // $& means the whole matched string

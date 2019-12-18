@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import yaml from "js-yaml";
 import moment from "moment";
 import fs from "fs-extra";
+// @ts-ignore
 import shortHash from "short-hash";
 import stringify from "es6-json-stable-stringify";
 import { scan } from "dree";
@@ -47,19 +48,7 @@ export default class ApiBuilder {
   }
 
   get config() {
-    const ROOT = path.dirname(this.root);
-
-    let config: any = {};
-  
-    try {
-      if (fs.existsSync(path.join(ROOT, "config.yaml"))) {
-        config = yaml.safeLoad(fs.readFileSync(path.join(ROOT, "config.yaml"), "utf8"));
-      } else {
-        config = JSON.parse(fs.readFileSync(path.join(ROOT, "config.json"), "utf8"));
-      }
-    } catch(e) {
-      console.error(e);
-    }
+    const config = yaml.safeLoad(fs.readFileSync(path.join(this.root, "config.yaml"), "utf8"));
   
     return config;
   }
@@ -75,9 +64,6 @@ export default class ApiBuilder {
     const ROOT = path.join(this.root, dirName);
 
     const raw = fs.readFileSync(path.join(ROOT, fileName), "utf8");
-    if (asHtml) {
-      fileName = fileName.replace(/\.md$/i, ".html");
-    }
 
     const m = matter(raw);
     const p = path.parse(fileName);
@@ -87,8 +73,6 @@ export default class ApiBuilder {
       path: fileName
     }
 
-    
-  
     if (m.data.date) {
       let mm = moment(m.data.date);
       mm = mm.add(-mm.utcOffset(), "minute");

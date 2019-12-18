@@ -1,4 +1,4 @@
-import ApiBuilder from "~/utils/build-api";
+import ApiBuilder from "../utils/build-api";
 import { ServerMiddleware } from "@nuxt/types";
 
 const dirApi: ServerMiddleware = (req, res, next) => {

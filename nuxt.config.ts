@@ -92,7 +92,8 @@ const nuxtConfig: Configuration = {
   */
   plugins: [
     '~/plugins/disqus',
-    '~/plugins/app.client.ts',
+    '~/plugins/axios-accessor',
+    '~/plugins/fontawesome',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -107,8 +108,11 @@ const nuxtConfig: Configuration = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org
-    'bootstrap-vue/nuxt',
+    ['nuxt-buefy', {
+      materialDesignIcons: false,
+      defaultIconPack: 'fas',
+      defaultIconComponent: 'fa'
+    }],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     ['nuxt-mq', {

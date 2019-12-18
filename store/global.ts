@@ -1,6 +1,6 @@
 import { Module, VuexModule, Action } from 'vuex-module-decorators';
-import { fetchOrLocal } from '~/utils/fetch';
-import { DataType } from '~/utils/build-api';
+import { fetchOrLocal } from '../utils/fetch';
+import { DataType } from '../utils/build-api';
 
 @Module({
   name: 'global',

@@ -1,4 +1,4 @@
-import { initializeAxios } from '~/utils/api'
+import { initializeAxios } from '../utils/api'
 
 const accessor = ({ $axios }) => {
   initializeAxios($axios)

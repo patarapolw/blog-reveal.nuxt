@@ -3,6 +3,7 @@ import hyperpug, { IHyperPugFilters } from "hyperpug";
 import h from "hyperscript";
 import { createIndentedFilter } from "indented-filter";
 import qs from "querystring";
+// @ts-ignore
 import scopeCss from "scope-css";
 import cheerio from "cheerio";
 
