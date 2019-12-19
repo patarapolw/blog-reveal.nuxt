@@ -4,10 +4,12 @@
 
 ## Installation
 
-This template is powered by `yarn` and [yargs](https://github.com/yargs/yargs) CLI. You might be able to use NPM, but it is not confirmed.
+This template is powered by `yarn` and [yargs](https://github.com/yargs/yargs) CLI. It might not be compatible with NPM due to [Nuxt-ts bug](https://github.com/nuxt/typescript/issues/145).
 
 ```
 git clone https://github.com/patarapolw/blog-reveal-template.nuxt.git
+cd blog-reveal-template.nuxt
+yarn
 yarn link
 ```
 
