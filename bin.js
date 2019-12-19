@@ -5,6 +5,7 @@ const { spawnSync } = require("child_process");
 const path = require("path");
 
 const { argv } = yargs
+  .scriptName("blog-reveal")
   .command("$0 [cmd] <root>", "Start up Nuxt-ts server", (y) => {
     y
     .positional("cmd", {
