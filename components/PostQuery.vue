@@ -14,72 +14,72 @@ section
 </template>
 
 <script lang="ts">
-import PostTeaser from "./PostTeaser.vue";
-import Empty from "./Empty.vue";
-import QParser from "q2filter";
-import { normalizeArray, searchPosts, config } from "@/assets/util";
-import { Vue, Component, Prop, Watch } from "nuxt-property-decorator";
+import QParser from 'q2filter'
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
+import PostTeaser from './PostTeaser.vue'
+import Empty from './Empty.vue'
+import { normalizeArray, searchPosts, config } from '@/assets/util'
 
 @Component({
   components: {
     PostTeaser,
-    Empty
-  }
+    Empty,
+  },
 })
 export default class PostQuery extends Vue {
-  @Prop({default: ""}) q!: string;
-  @Prop({default: ""}) tag!: string;
-  @Prop({required: true}) defaults!: {
-    count: number;
-    posts: any[];
-  };
-
-  count = this.defaults.count;
-  posts: any[] = this.defaults.posts;
-  perPage = 5;
-
-  get page() {
-    return parseInt(normalizeArray(this.$route.query.page) || "1");
+  @Prop({ default: '' }) q!: string
+  @Prop({ default: '' }) tag!: string
+  @Prop({ required: true }) defaults!: {
+    count: number
+    posts: any[]
   }
 
-  set page(p) {
-    const { page, ...query } = this.$route.query;
+  count = this.defaults.count
+  posts: any[] = this.defaults.posts
+  perPage = 5
+
+  get page () {
+    return parseInt(normalizeArray(this.$route.query.page) || '1')
+  }
+
+  set page (p) {
+    const { page, ...query } = this.$route.query
     if (p === 1) {
-      this.$router.push({query});
+      this.$router.push({ query })
     } else {
-      this.$router.push({query: {
+      this.$router.push({ query: {
         ...query,
-        page: p.toString()
-      }});
+        page: p.toString(),
+      } })
     }
   }
 
-  mounted() {
-    this.updatePosts();
+  mounted () {
+    this.updatePosts()
   }
 
-  @Watch("page")
-  @Watch("q")
-  @Watch("tag")
-  async updatePosts() {
+  @Watch('page')
+  @Watch('q')
+  @Watch('tag')
+  async updatePosts () {
     const ps = await Promise.all(searchPosts({
       q: this.tag ? {
-        tag: this.tag
+        tag: this.tag,
       } : this.q,
       current: true,
-      headers: await fetch(`/build/json/headers.json?h=${config.h}`).then((r) => r.json())
+      headers: await fetch(`/build/json/headers.json?h=${config.h}`).then(r => r.json()),
     }).map(async (h) => {
       if (!h.teaser) {
-        h.teaser = await fetch(`/build/teaser/${h.path}.html`).then((r) => r.text());
+        h.teaser = await fetch(`/build/teaser/${h.path}.html`).then(r => r.text())
       }
-      return h;
-    }));
+      return h
+    }))
 
-    this.count = ps.length;
+    this.count = ps.length
     this.posts = ps.filter((p, i) => {
-      const iPage = i / this.perPage;
-      return iPage >= this.page - 1 && iPage < this.page;
-    });
+      const iPage = i / this.perPage
+      return iPage >= this.page - 1 && iPage < this.page
+    })
   }
 }
 </script>

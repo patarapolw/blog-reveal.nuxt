@@ -1,14 +1,14 @@
-import ApiBuilder from "../utils/build-api";
-import { ServerMiddleware } from "@nuxt/types";
+import { ServerMiddleware } from '@nuxt/types'
+import ApiBuilder from '../utils/build-api'
 
 const dirApi: ServerMiddleware = (req, res, next) => {
-  const m = /(\S+)\.json$/.exec(req.url!);
+  const m = /(\S+)\.json$/.exec(req.url!)
   if (m) {
-    const builder = new ApiBuilder();
-    res.setHeader("Content-Type", "application/json");
-    return res.end(JSON.stringify(builder.getDirTree(m[1] as any)));
+    const builder = new ApiBuilder()
+    res.setHeader('Content-Type', 'application/json')
+    return res.end(JSON.stringify(builder.getDirTree(m[1] as any)))
   }
-  next();
+  next()
 }
 
-export default dirApi;
+export default dirApi

@@ -8,22 +8,22 @@
 </template>
 
 <script lang="ts">
-import moment, { Moment } from "moment";
-import { Vue, Component, Prop } from "nuxt-property-decorator";
-import { config } from "@/assets/util";
+import moment, { Moment } from 'moment'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { config } from '@/assets/util'
 
 @Component
 export default class PostHeader extends Vue {
-  @Prop({required: true}) header!: any;
+  @Prop({ required: true }) header!: any
 
-  author = config.author;
+  author = config.author
 
-  get moment() {
-    return this.header.date ? moment(this.header.date) : null;
+  get moment () {
+    return this.header.date ? moment(this.header.date) : null
   }
 
-  get dateString() {
-    return this.moment ? this.moment.format("ddd D MMMM YYYY") : "";
+  get dateString () {
+    return this.moment ? this.moment.format('ddd D MMMM YYYY') : ''
   }
 }
 </script>

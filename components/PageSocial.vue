@@ -15,12 +15,12 @@ div.page-social
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "nuxt-property-decorator";
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class PageSocial extends Vue {
-  @Prop({default: {}}) social!: any;
-  @Prop() email?: string;
+  @Prop({ default: {} }) social!: any
+  @Prop() email?: string
 }
 </script>
 

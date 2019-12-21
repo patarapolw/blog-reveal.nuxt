@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "nuxt-property-decorator";
+import { Vue } from 'nuxt-property-decorator'
 
-export default Vue.extend();
+export default Vue.extend()
 </script>

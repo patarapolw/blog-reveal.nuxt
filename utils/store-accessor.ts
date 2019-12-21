@@ -4,7 +4,7 @@ import GlobalModule from '../store/global'
 
 let globalStore: GlobalModule
 
-function initialiseStores(store: Store<any>): void {
+function initialiseStores (store: Store<any>): void {
   globalStore = getModule(GlobalModule, store)
 }
 

@@ -34,55 +34,55 @@ section
 </template>
 
 <script lang="ts">
-import PageSocial from "@/components/PageSocial.vue";
-import { Vue, Component } from "nuxt-property-decorator";
-import { normalizeArray, config } from "@/assets/util";
+import { Vue, Component } from 'nuxt-property-decorator'
+import PageSocial from '@/components/PageSocial.vue'
+import { normalizeArray, config } from '@/assets/util'
 
 @Component({
   components: {
-    PageSocial
-  }
+    PageSocial,
+  },
 })
 export default class Default extends Vue {
-  banner = config.banner;
-  social = config.social;
-  email = config.author.email;
-  tabs: any[] = config.tabs;
-  q = "";
-  fullUrl = config.fullUrl;
-  
-  get tags() {
-    const tagList = JSON.parse(process.env.TAGS!);
+  banner = config.banner
+  social = config.social
+  email = config.author.email
+  tabs: any[] = config.tabs
+  q = ''
+  fullUrl = config.fullUrl
+
+  get tags () {
+    const tagList = JSON.parse(process.env.TAGS!)
 
     return Object.keys(tagList).sort((a, b) => {
-      return tagList[b] - tagList[a];
+      return tagList[b] - tagList[a]
     }).slice(0, 30).map((t) => {
-      if (t === "pinned") {
-        return null;
+      if (t === 'pinned') {
+        return null
       }
       return {
         name: t,
         class: (() => {
-          const count = tagList[t];
+          const count = tagList[t]
           if (count > 20) {
-            return "c20"
+            return 'c20'
           } else if (count > 10) {
-            return "c10"
+            return 'c10'
           } else if (count > 5) {
-            return "c5"
+            return 'c5'
           } else if (count > 3) {
-            return "c3"
+            return 'c3'
           } else if (count > 1) {
-            return "c2"
+            return 'c2'
           }
-          return "c1"
-        })()
+          return 'c1'
+        })(),
       }
-    }).filter((el) => el);
+    }).filter(el => el)
   }
 
-  head() {
-    const url = this.fullUrl + this.$route.path;
+  head () {
+    const url = this.fullUrl + this.$route.path
 
     return {
       link: [
@@ -95,25 +95,25 @@ export default class Default extends Vue {
         {
           hid: 'og:url',
           property: 'og:url',
-          content: this.fullUrl
+          content: this.fullUrl,
         },
-      ]
+      ],
     }
   }
 
-  mounted() {
-    this.q = normalizeArray(this.$route.query.q) || "";
+  mounted () {
+    this.q = normalizeArray(this.$route.query.q) || ''
   }
 
-  onSearch() {
+  onSearch () {
     this.$router.push({
-      path: "/",
-      query: {q: this.q}
-    });
+      path: '/',
+      query: { q: this.q },
+    })
   }
 
-  open(url: string) {
-    open(url, "_blank");
+  open (url: string) {
+    open(url, '_blank')
   }
 }
 </script>

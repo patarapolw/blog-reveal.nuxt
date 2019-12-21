@@ -6,36 +6,36 @@
       .image-teaser(v-if="header.image")
         img(:src="header.image")
       h2.title {{header.title}}
-      .content(v-html="teaser")  
+      .content(v-html="teaser")
     div(style="display: flex; justify-content: flex-end")
       b-button(type="is-danger" outlined @click="$router.push(header.url)") Read more
 </template>
 
 <script lang="ts">
-import { highlightBlock } from "@/assets/util";
-import PostHeader from "./PostHeader.vue";
-import { Vue, Component, Prop } from "nuxt-property-decorator";
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import PostHeader from './PostHeader.vue'
+import { highlightBlock } from '@/assets/util'
 
 @Component({
   components: {
-    PostHeader
-  }
+    PostHeader,
+  },
 })
 export default class PostTeaser extends Vue {
-  @Prop({ required: true }) header!: any;
+  @Prop({ required: true }) header!: any
 
-  teaser: string = this.header.teaser || "";
+  teaser: string = this.header.teaser || ''
 
-  async mounted() {
-    highlightBlock(this.$el);
+  async mounted () {
+    highlightBlock(this.$el)
 
     if (!this.teaser) {
-      this.teaser = await fetch(`/build/teaser/${this.header.path}.html?h=${this.header.h}`).then((r) => r.text());
+      this.teaser = await fetch(`/build/teaser/${this.header.path}.html?h=${this.header.h}`).then(r => r.text())
     }
   }
 
-  updated() {
-    highlightBlock(this.$el);
+  updated () {
+    highlightBlock(this.$el)
   }
 }
 </script>

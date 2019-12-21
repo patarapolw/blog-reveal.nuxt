@@ -19,39 +19,39 @@ section
 </template>
 
 <script lang="ts">
-import { highlightBlock, config } from "../assets/util";
-import PostHeader from "./PostHeader.vue";
-import Empty from "./Empty.vue";
-import { Vue, Component, Prop, Watch } from "nuxt-property-decorator";
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
+import { highlightBlock, config } from '../assets/util'
+import PostHeader from './PostHeader.vue'
+import Empty from './Empty.vue'
 
 @Component({
   components: {
     PostHeader,
-    Empty
-  }
+    Empty,
+  },
 })
 export default class PostFull extends Vue {
-  @Prop({required: true}) header!: any;
-  @Prop() content?: string;
+  @Prop({ required: true }) header!: any
+  @Prop() content?: string
 
-  html = this.content || "";
+  html = this.content || ''
 
-  disqus = config.external.disqus;
+  disqus = config.external.disqus
 
-  mounted() {
-    this.updatePost();
+  mounted () {
+    this.updatePost()
   }
 
-  @Watch("header.path")
-  async updatePost() {
+  @Watch('header.path')
+  async updatePost () {
     if (!this.html && this.header.path) {
-      this.html = await fetch(`/build/teaser/${this.header.path}.html?h=${this.header.h}`).then((r) => r.text());
-      highlightBlock(this.$el);
+      this.html = await fetch(`/build/teaser/${this.header.path}.html?h=${this.header.h}`).then(r => r.text())
+      highlightBlock(this.$el)
 
-      this.html = await fetch(`/build/full/${this.header.path}.html?h=${this.header.h}`).then((r) => r.text());
+      this.html = await fetch(`/build/full/${this.header.path}.html?h=${this.header.h}`).then(r => r.text())
     }
 
-    highlightBlock(this.$el);
+    highlightBlock(this.$el)
   }
 }
 </script>

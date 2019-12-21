@@ -11,7 +11,8 @@
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "generate": "nuxt-ts generate",
+    "lint": "eslint --ext .ts,.js,.vue ."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
@@ -59,6 +60,8 @@
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.1",
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
     "@types/cheerio": "^0.22.15",
     "@types/fs-extra": "^8.0.1",
     "@types/html-to-text": "^1.4.31",
@@ -66,6 +69,11 @@
     "@types/lodash.merge": "^4.6.6",
     "@types/showdown": "^1.9.3",
     "@types/webpack-env": "^1.14.1",
-    "@types/yargs": "^13.0.3"
+    "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "typescript": "^3.7.4"
   }
 }
