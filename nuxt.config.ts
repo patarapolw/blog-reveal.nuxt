@@ -5,10 +5,10 @@ import dotProp from 'dot-prop'
 import { Configuration } from '@nuxt/types'
 import serveStatic from 'serve-static'
 import ApiBuilder from './utils/build-api'
-import { startServer, stopServer } from './server'
+import { startServer } from './server'
 
 const SERVER_PORT = parseInt(process.env.SERVER_PORT || '24000')
-startServer(SERVER_PORT)
+const server = startServer(SERVER_PORT)
 
 const apiBuilder = new ApiBuilder()
 const config = apiBuilder.config
@@ -160,17 +160,13 @@ const nuxtConfig: Configuration = {
     ],
   },
   hooks: {
-    build: {
-      done () {
-        stopServer()
-      },
-    },
     generate: {
       distRemoved () {
         apiBuilder.emit()
       },
       done () {
-        stopServer()
+        console.log('Closing server...')
+        server.close()
       },
     },
   },

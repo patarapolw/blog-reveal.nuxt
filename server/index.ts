@@ -1,14 +1,15 @@
-import express, { Express, Router } from 'express'
+import express, { Router } from 'express'
+import cors from 'cors'
 import ApiBuilder from '../utils/build-api'
 import { fullApi, teaserApi, headerApi, hashApi, tagApi } from './api/file'
 
-let app: Express
-
 export function startServer (port: number) {
-  app = express()
+  const app = express()
 
   const apiRouter = Router()
   app.use('/api', apiRouter)
+
+  apiRouter.use(cors())
 
   apiRouter.get('/config.json', (req, res) => {
     const builder = new ApiBuilder()
@@ -28,9 +29,5 @@ export function startServer (port: number) {
   apiRouter.get('/hash/:filename.json', hashApi())
   apiRouter.get('/tag/posts.json', tagApi())
 
-  app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
-}
-
-export async function stopServer () {
-  await (app as any).close()
+  return app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
 }
