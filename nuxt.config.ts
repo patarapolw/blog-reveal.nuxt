@@ -5,7 +5,10 @@ import dotProp from 'dot-prop'
 import { Configuration } from '@nuxt/types'
 import serveStatic from 'serve-static'
 import ApiBuilder from './utils/build-api'
-import { fullApi, teaserApi, headerApi, hashApi, tagApi } from './api/file'
+import { startServer, stopServer } from './server'
+
+const SERVER_PORT = parseInt(process.env.SERVER_PORT || '24000')
+startServer(SERVER_PORT)
 
 const apiBuilder = new ApiBuilder()
 const config = apiBuilder.config
@@ -157,25 +160,27 @@ const nuxtConfig: Configuration = {
     ],
   },
   hooks: {
+    build: {
+      done () {
+        stopServer()
+      },
+    },
     generate: {
       distRemoved () {
         apiBuilder.emit()
       },
+      done () {
+        stopServer()
+      },
     },
   },
   serverMiddleware: [
-    { path: '/api/config.json', handler: '~/api/config' },
-    { path: '/api/dir', handler: '~/api/dir' },
-    { path: '/api/full', handler: fullApi('posts') },
-    { path: '/api/teaser', handler: teaserApi() },
-    { path: '/api/resources', handler: fullApi('resources') },
-    { path: '/api/slides', handler: fullApi('slides') },
-    { path: '/api/header', handler: headerApi() },
-    { path: '/api/hash', handler: hashApi() },
-    { path: '/api/tag/posts.json', handler: tagApi() },
     { path: '/favicon.ico', handler: serveStatic(path.join(apiBuilder.root, 'favicon.ico')) as any },
     { path: '/media', handler: serveStatic(path.join(apiBuilder.root, 'media')) as any },
   ],
+  env: {
+    serverUrl: `http://localhost:${SERVER_PORT}`,
+  },
 }
 
 export default lodashMerge(nuxtConfig, config.nuxt || {})

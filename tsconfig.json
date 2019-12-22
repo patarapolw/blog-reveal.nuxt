@@ -27,8 +27,7 @@
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
-      "@types/node",
-      "webpack-env"
+      "@types/node"
     ],
     "skipLibCheck": true
   },
